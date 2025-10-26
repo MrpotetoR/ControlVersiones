@@ -17,6 +17,8 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
+
+
     }
 
     inner class TaskAdapter(context: Context, private val tasks: ArrayList<String>) : ArrayAdapter<String>(context, 0, tasks) {
