@@ -13,12 +13,33 @@ import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 
 class MainActivity : AppCompatActivity() {
+
+    private lateinit var editTextTask: EditText
+    private lateinit var buttonAddTask: Button
+    private lateinit var listViewTasks: ListView
+    private lateinit var tasks: ArrayList<String>
+    private lateinit var adapter: TaskAdapter
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
+        editTextTask = findViewById(R.id.editTextTask)
+        buttonAddTask = findViewById(R.id.buttonAddTask)
+        listViewTasks = findViewById(R.id.listViewTasks)
 
+        tasks = ArrayList()
+        adapter = TaskAdapter(this, tasks)
+        listViewTasks.adapter = adapter
 
+        buttonAddTask.setOnClickListener {
+            val task = editTextTask.text.toString()
+            if (task.isNotEmpty()) {
+                tasks.add(task)
+                adapter.notifyDataSetChanged()
+                editTextTask.text.clear()
+            }
+        }
     }
 
     inner class TaskAdapter(context: Context, private val tasks: ArrayList<String>) : ArrayAdapter<String>(context, 0, tasks) {
